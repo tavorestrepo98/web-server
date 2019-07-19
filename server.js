@@ -1,20 +1,18 @@
-const morgan = require('morgan')
 const path = require('path');
 const express = require('express');
 const app = express();
 const hbs = require('hbs');
 
 
-app.use(express.static( __dirname + "/public"));
+app.use(express.static( path.join(__dirname + "/public")));
 
 //Settings
-app.set('port', process.env.PORT || 3000);
+const port = process.env.PORT || 3000;
 hbs.registerPartials(__dirname + '/views/parciales' );
 app.set('view engine', 'hbs'); 
 
 //middlewares
 app.use(express.urlencoded({ extended: false }));
-app.use(morgan('dev'));
 app.use(express.json());
 
 
@@ -31,6 +29,6 @@ app.get('/about', (req, res ) =>{
     });
 });
 
-app.listen(app.get('port'), ()=>{
-    console.log(`Escuchando puerto ${app.get('port')}`);
+app.listen(port, ()=>{
+    console.log(`Escuchando puerto ${port}`);
 });
